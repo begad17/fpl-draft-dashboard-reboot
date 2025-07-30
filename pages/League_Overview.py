@@ -3,9 +3,13 @@ import pandas as pd
 import gspread
 from google.oauth2.service_account import Credentials
 
-# Authenticate & Connect to Google Sheets
-scope = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
-creds = Credentials.from_service_account_file("service_account.json", scopes=scope)
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+
+# Read the service account info from Streamlit secrets
+service_account_info = st.secrets["gcp_service_account"]
+creds = Credentials.from_service_account_info(service_account_info, scopes=scope)
+
+# Authorize gspread client
 client = gspread.authorize(creds)
 
 # Open your Google Sheet
@@ -27,19 +31,18 @@ if not raw_data or len(raw_data) < 2:
     st.error("No data found or sheet is improperly formatted.")
 else:
     headers = raw_data[0]
-    # Replace empty headers with fallback names
     headers = [h if h != '' else f'Unnamed_{i}' for i, h in enumerate(headers)]
     
     df = pd.DataFrame(raw_data[1:], columns=headers)
 
-    # Try converting numeric columns (e.g., GW, Points)
+    # Try converting numeric columns
     for col in df.columns:
         df[col] = pd.to_numeric(df[col], errors='ignore')
 
     st.title(f"{selected_manager} - Season Results")
     st.dataframe(df)
 
-    # Example Visualizations (if columns exist)
+    # Example Visualizations
     if 'GW' in df.columns and 'Points' in df.columns:
         df_sorted = df.sort_values(by='GW')
         st.line_chart(df_sorted.set_index('GW')['Points'])
@@ -50,4 +53,3 @@ else:
         st.metric("Average per GW", f"{avg_pts:.2f}")
     else:
         st.warning("No 'GW' or 'Points' columns found for graphing.")
-
