@@ -2,10 +2,13 @@ import streamlit as st
 import pandas as pd
 import gspread
 from google.oauth2.service_account import Credentials
+import json
 
 # Authenticate & Connect to Google Sheets
 scope = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
-creds = Credentials.from_service_account_file("service_account.json", scopes=scope)
+service_account_info = st.secrets["gcp_service_account"]
+creds = Credentials.from_service_account_info(service_account_info, scopes=scope)
+
 client = gspread.authorize(creds)
 
 # Open your Google Sheet
@@ -50,4 +53,3 @@ else:
         st.metric("Average per GW", f"{avg_pts:.2f}")
     else:
         st.warning("No 'GW' or 'Points' columns found for graphing.")
-
