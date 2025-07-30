@@ -3,10 +3,9 @@ import pandas as pd
 import gspread
 from google.oauth2.service_account import Credentials
 
-# Define scope
-scope = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
-# Load credentials from Streamlit Secrets (NOT from a file)
+# Read the service account info from Streamlit secrets
 service_account_info = st.secrets["gcp_service_account"]
 creds = Credentials.from_service_account_info(service_account_info, scopes=scope)
 
