@@ -35,19 +35,26 @@ mvp_counts = {
 managers = list(mvp_counts.keys())
 counts = list(mvp_counts.values())
 
-# Create bar chart
-plt.figure(figsize=(8, 5))
-plt.bar(managers, counts, color='skyblue', edgecolor='black')
+# Create bar chart using Matplotlib
+fig, ax = plt.subplots(figsize=(8, 5))
+bars = ax.bar(managers, counts, color='skyblue', edgecolor='black')
 
 # Add title and labels
-plt.title("Manager of the Month Awards")
-plt.xlabel("Manager")
-plt.ylabel("Number of Times Won")
+ax.set_title("Manager of the Month Awards")
+ax.set_xlabel("Manager")
+ax.set_ylabel("Number of Times Won")
 
 # Add value labels on top of bars
-for i, value in enumerate(counts):
-    plt.text(i, value + 0.1, str(value), ha='center', va='bottom')
+for i, bar in enumerate(bars):
+    ax.text(
+        bar.get_x() + bar.get_width() / 2,
+        bar.get_height() + 0.1,
+        str(counts[i]),
+        ha='center',
+        va='bottom'
+    )
 
-# Show the chart
-plt.tight_layout()
-st.plt.show()
+fig.tight_layout()
+
+# Show the chart in Streamlit
+st.pyplot(fig)
