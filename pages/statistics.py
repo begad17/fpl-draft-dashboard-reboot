@@ -2,30 +2,22 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-leagueWins = {'Team':['Jordan (1)','Begad (1)', 'Moe (1)'],
-             'Championships':[1,1,1]}
+# Prepare data
+leagueWins = {'Team':['Jordan (1)','Begad (1)','Moe (1)'], 'Championships':[1,1,1]}
+df = pd.DataFrame(leagueWins)
+teamColours = ['#f40206','#0560b5','#ce0000']  # Must match number of teams!
 
-df = pd.DataFrame(leagueWins, columns=['Team','Championships'])
+# Create figure and axis
+fig, ax = plt.subplots()
+ax.pie(
+    df['Championships'],
+    labels=df['Team'],
+    colors=teamColours,
+    startangle=90,
+    autopct='%1.1f%%'
+)
+ax.set_title("MoneyNotPassion League Titles")
+ax.axis('equal')
 
-plt.pie(df['Championships'])
-
-#This next line just makes the plot look a little cleaner in this notebook
-plt.tight_layout()
-
-#Create a list of the colours used for the teams, in order.
-teamColours=['#f40206','#0560b5','#ce0000','#1125ff','#28cdff','#091ebc']
-
-plt.pie(df['Championships'],
-        #Data labels are the team names in the dataFrame
-       labels = df['Team'],
-        #Assign our colours list
-       colors = teamColours,
-        #Give a tidier angle to ur first data angle
-        startangle = 90
-       )
-
-#Add a title
-plt.title("MoneyNotPassion League Titles")
-plt.tight_layout()
-
-plt.show()
+st.title("Statistics")
+st.pyplot(fig)
