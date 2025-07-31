@@ -7,7 +7,7 @@ st.title("FPL Draft League Dashboard")
 st.markdown("Use the sidebar to navigate to different views:")
 st.sidebar.page_link("pages/League_Overview.py", label="Manager Overview")
 st.sidebar.page_link("pages/Cup_Tracker.py", label="Cup Tracker")
-st.sidebar.page_link("pages/H2H_Fixtures.py", label="Statistics")
+st.sidebar.page_link("pages/statistics.py", label="Statistics")
 
 import streamlit as st
 
