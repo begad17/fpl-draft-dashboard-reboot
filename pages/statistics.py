@@ -49,5 +49,5 @@ for i, value in enumerate(counts):
     plt.text(i, value + 0.1, str(value), ha='center', va='bottom')
 
 # Show the chart
-st.plt.tight_layout()
+plt.tight_layout()
 st.plt.show()
