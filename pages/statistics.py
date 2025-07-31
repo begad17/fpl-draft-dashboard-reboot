@@ -21,3 +21,33 @@ ax.axis('equal')
 
 st.title("Statistics")
 st.pyplot(fig)
+
+# MVP stats
+mvp_counts = {
+    "Moe": 3,
+    "Connor": 3,
+    "Michael": 1,
+    "Fawzi": 2,
+    "Begad": 1
+}
+
+# Data for the chart
+managers = list(mvp_counts.keys())
+counts = list(mvp_counts.values())
+
+# Create bar chart
+plt.figure(figsize=(8, 5))
+plt.bar(managers, counts, color='skyblue', edgecolor='black')
+
+# Add title and labels
+plt.title("Manager of the Month Awards")
+plt.xlabel("Manager")
+plt.ylabel("Number of Times Won")
+
+# Add value labels on top of bars
+for i, value in enumerate(counts):
+    plt.text(i, value + 0.1, str(value), ha='center', va='bottom')
+
+# Show the chart
+st.plt.tight_layout()
+st.plt.show()
