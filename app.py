@@ -17,7 +17,7 @@ st.title("Welcome to the FPL Draft Dashboard 🚀")
 
 st.markdown("""
 Navigate through the pages on the left sidebar:
-- **League Overview**
+- **Manager Overview**
 - **Cup Tracker**
-- **H2H Fixtures**
+- **Statistics**
 """)
