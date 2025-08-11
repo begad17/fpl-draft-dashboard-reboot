@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Page Title
-st.title("Statistics")
+st.title("Statistics & League History")
 
 # Carousel Slide Selector
 slide = st.radio("Select Statistic View:", ["League Titles", "Manager of the Month"])
@@ -58,3 +58,4 @@ elif slide == "Manager of the Month":
 
     fig.tight_layout()
     st.pyplot(fig)
+
